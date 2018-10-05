@@ -18,13 +18,13 @@ namespace keepr.Repositories
 
     //CRUD VIA SQL
 
-    //GET ALL BURGERS
+    //GET ALL VAULTS
     public IEnumerable<Vault> GetAll()
     {
       return _db.Query<Vault>("SELECT * FROM vaults;");
     }
 
-    //GET BURGER BY ID
+    //GET VAULT BY ID
     public Vault GetById(int id)
     {
       return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id;", new { id }).FirstOrDefault();

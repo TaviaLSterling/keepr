@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -22,8 +23,14 @@ namespace keepr.Controllers
     {
       return _repo.GetAll();
     }
-
+    //Get a vault by the id of the vault
+    [HttpGet("id")]
+    public Vault GetById(int id)
+    {
+      return _repo.GetById(id);
+    }
     [HttpPost]
+    [Authorize]
     public Vault Post([FromBody] Vault vault)
     {
       if (ModelState.IsValid)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -24,6 +25,7 @@ namespace keepr.Controllers
     }
 
     [HttpPost]
+     [Authorize]
     public Keep Post([FromBody] Keep keep)
     {
       if (ModelState.IsValid)
@@ -33,7 +35,13 @@ namespace keepr.Controllers
       }
       throw new Exception("INVALID KEEP");
     }
-
+  // Get all of the keeps in specific vault
+   [HttpGet("vault/{id}")]
+        [Authorize]
+        public IEnumerable<Keep> GetByVault(int id)
+        {
+            return _repo.GetByVault(id);
+        }
   }
 
 }
