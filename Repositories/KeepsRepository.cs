@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using keepr.Models;
 using Dapper;
+using System;
 
 namespace keepr.Repositories
 {
@@ -18,7 +19,7 @@ namespace keepr.Repositories
 
     //CRUD VIA SQL
 
-    //GET ALL KEEPSS
+    //GET ALL KEEPS
     public IEnumerable<Keep> GetAll()
     {
       return _db.Query<Keep>("SELECT * FROM keeps;");
@@ -30,7 +31,7 @@ namespace keepr.Repositories
       return _db.Query<Keep>("SELECT * FROM keeps WHERE id = @id;", new { id }).FirstOrDefault();
     }
 
-    //CREATE smoothie
+    //CREATE A KEEP
     public Keep Create(Keep keep)
     {
       int id = _db.ExecuteScalar<int>(@"
@@ -42,8 +43,8 @@ namespace keepr.Repositories
       return keep;
     }
 
-    //UPDATE smoothie
-    public Keep Update(Keep keep)
+    //UPDATE KEEP
+    public Keep Update(int id, Keep keep)
     {
       _db.Execute(@"
       UPDATE keeps SET (name, description) 
@@ -52,15 +53,25 @@ namespace keepr.Repositories
       ", keep);
       return keep;
     }
+      // Getting a keep by the Id of the vault
+        internal IEnumerable<Keep> GetByVault(int id)
+        {
+            return _db.Query<Keep>("SELECT * FROM keeps WHERE vaultId = @id;");
+        }
 
-    //DELETE smoothie
-    public Keep Delete(Keep keep)
-    {
-      _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
-      return keep;
-    }
+        internal IEnumerable<Keep> GetByUserId(int id)
+        {
+            return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @id");
+        }
 
-    public int Delete(int id)
+        //DELETE smoothie
+        //     public  Delete(Keep keep)
+        // {
+        //   _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
+        //   return keep;
+        // }
+
+        public int DeleteKeep(int id)
     {
       return _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });
     }

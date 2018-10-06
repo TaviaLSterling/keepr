@@ -12,6 +12,15 @@ namespace keepr.Models
         public int Id { get; set; }
         public int UserId {get; set;}
 
+          public Vault(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
+        public Vault()
+        {
+
+        }
 
 
     }

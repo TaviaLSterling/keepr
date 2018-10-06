@@ -29,20 +29,27 @@ namespace keepr.Repositories
     {
       return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id;", new { id }).FirstOrDefault();
     }
-
-    //CREATE smoothie
+    public IEnumerable<Vault> GetByUserId(string id)
+    {
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new {id});
+    }
+    public IEnumerable<Vault> GetByVaultId(int id)
+    {
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id", new {id});
+    }
+    //CREATE A VAULT
     public Vault Create(Vault vault)
     {
       int id = _db.ExecuteScalar<int>(@"
-        INSERT INTO vaults (name, description)
-        VALUES (@Name, @Description);
+        INSERT INTO vaults (name, description, userId)
+        VALUES (@Name, @Description, @UserId);
         SELECT LAST_INSERT_ID();", vault
       );
       vault.Id = id;
       return vault;
     }
 
-    //UPDATE smoothie
+    //UPDATE a vault
     public Vault Update(Vault vault)
     {
       _db.Execute(@"

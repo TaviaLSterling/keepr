@@ -19,7 +19,7 @@ namespace keepr.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<Keep> Get()
+    public IEnumerable<Keep> GetAll()
     {
       return _repo.GetAll();
     }
@@ -41,6 +41,29 @@ namespace keepr.Controllers
         public IEnumerable<Keep> GetByVault(int id)
         {
             return _repo.GetByVault(id);
+        }
+
+        [HttpGet("{id")]
+        public Keep GetById(int id)
+        {
+          return _repo.GetById(id);
+        }
+        [HttpGet("user/{id}")]
+        public IEnumerable<Keep> GetByUserId(int id)
+        {
+          return _repo.GetByUserId(id);
+        }
+        [HttpDelete("{id}")]
+        [Authorize]
+        public void DeleteKeep(int id)
+        {
+
+        }
+        [HttpPut("{id}")]
+        [Authorize]
+        public Keep Update(int id,[FromBody]Keep keep)
+        {
+          return _repo.Update(id, keep);
         }
   }
 
