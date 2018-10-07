@@ -24,11 +24,21 @@ namespace keepr.Controllers
       return _repo.GetAll();
     }
     //Get a vault by the id of the vault
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     public Vault GetById(int id)
     {
       return _repo.GetById(id);
     }
+    [Authorize]
+    [HttpGet]
+    public IEnumerable<Vault> GetByUserId()
+    {
+      var user = HttpContext.User;
+      var id = user.Identity.Name;
+      return _repo.GetByUserId(id);
+    }
+
+
     [HttpPost]
     [Authorize]
     public Vault Post([FromBody] Vault vault)
@@ -39,6 +49,18 @@ namespace keepr.Controllers
         return _repo.Create(vault);
       }
       throw new Exception("INVALID VAULT");
+    }
+    [Authorize]
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+
+    }
+    [Authorize]
+    [HttpPut("{id}")]
+    public Vault Update(int id, [FromBody]Vault vault)
+    {
+      return _repo.Update(id, vault);
     }
 
   }

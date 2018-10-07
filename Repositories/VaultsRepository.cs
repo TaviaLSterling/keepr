@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using keepr.Models;
 using Dapper;
+using System;
 
 namespace keepr.Repositories
 {
@@ -15,8 +16,6 @@ namespace keepr.Repositories
     {
       _db = db;
     }
-
-    //CRUD VIA SQL
 
     //GET ALL VAULTS
     public IEnumerable<Vault> GetAll()
@@ -31,11 +30,11 @@ namespace keepr.Repositories
     }
     public IEnumerable<Vault> GetByUserId(string id)
     {
-      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new {id});
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new { id });
     }
     public IEnumerable<Vault> GetByVaultId(int id)
     {
-      return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id", new {id});
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id", new { id });
     }
     //CREATE A VAULT
     public Vault Create(Vault vault)
@@ -50,7 +49,7 @@ namespace keepr.Repositories
     }
 
     //UPDATE a vault
-    public Vault Update(Vault vault)
+    public Vault Update(int id, Vault vault)
     {
       _db.Execute(@"
       UPDATE vaults SET (name, description) 
@@ -60,8 +59,8 @@ namespace keepr.Repositories
       return vault;
     }
 
-    //DELETE smoothie
-    public Vault Delete(Vault vault)
+        //DELETE smoothie
+        public Vault Delete(Vault vault)
     {
       _db.Execute("DELETE FROM vaults WHERE id = @Id", vault);
       return vault;

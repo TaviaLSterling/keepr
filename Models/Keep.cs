@@ -15,10 +15,11 @@ namespace keepr.Models
         public int Views { get; set; }
         public int Shares { get; set; }
         public int Keeps { get; set; }
-        public Keep(string name, string description)
+        public Keep(string name, string description, string img)
         {
             Name = name;
             Description = description;
+            Img = img;
         }
         public Keep()
         {
