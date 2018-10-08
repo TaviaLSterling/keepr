@@ -4,12 +4,12 @@
             <!-- <h1>IS THIS WORKING?</h1> -->
             <div class="col-4 mt-5" v-for="keep in keeps" :key="keep.id">
                 <h3>{{keep.name}}</h3>
-                <h4>Description: {{keep.description}}</h4>
                 <div><img :src="keep.img"></div>
+                <h4>Description: {{keep.description}}</h4>
                 <h4>Views: {{keep.views}}</h4>
-                <button class=" btn btn-warning"><p>View</p></button>
-                <button class=" btn btn-warning"><p>Share</p></button>
-                <button class=" btn btn-warning"><p>Keep</p></button>
+                <button class="btn btn-warning mr-2"><h4>View</h4></button>
+                <button class="btn btn-warning mr-2"><h4>Share</h4></button>
+                <button class="btn btn-warning"><h4>Keep</h4></button>
                 <!-- <img :src="keep.image"> -->
                 <!-- <button v-if="user.id == keep.userId" class="btn btn-danger" @click="deleteKeep(keep.id)">Delete</button> -->
             </div>

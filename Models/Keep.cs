@@ -20,6 +20,7 @@ namespace keepr.Models
             Name = name;
             Description = description;
             Img = img;
+            IsPrivate = 0;
         }
         public Keep()
         {
