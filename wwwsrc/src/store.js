@@ -31,11 +31,14 @@ export default new Vuex.Store({
       state.user = {}
       router.push({ name: 'login' })
     },
-    setVaults(state, Vaults) {      
-      state.vaults = Vaults
+    setVaults(state, vaults) {      
+      state.vaults = vaults
     },
-    setKeeps(state,Keeps){      
-      state.keeps = Keeps
+    setKeeps(state,keeps){      
+      state.keeps = keeps
+    },
+    setDash(state,user) {
+      state.user = user
     }
   },
   actions: {
@@ -76,6 +79,52 @@ export default new Vuex.Store({
         dispatch('logout')
         router.push({name: 'login'})
       })
-    }
+    },
+    getDash({ commit, dispatch }) {
+      auth.get('dash')
+        .then(res => {
+          commit('setDash', res.data)
+          router.push({ name: 'dash' })
+        })
+        .catch(e => {
+          console.log('Must Login')
+        })
+      },
+
+
+      ////// Keeps Things
+
+      createKeep({commit,dispatch,state},){
+        api.post("keeps")
+        .then(res =>{
+          dispatch('getKeeps')
+        })
+      },
+      getKeeps({commit,dispatch}) {
+        api.get("keeps")
+        .then(res => {
+          commit('setKeeps',res.data)
+        })
+      },
+      deleteKeep({dispatch, commit}, id){
+        api.delete('/keeps'+id)
+        .then(res=>{
+          dispatch('getKeeps')
+        })
+      },
+
+      //// Vault things
+      createVault({commit,dispatch,state},vault){
+        api.post("/Dash",vault)
+        .then(res =>{
+          dispatch('getVaults')
+        })
+      },
+      deleteVault({dispatch, commit}, id){
+        api.delete('/vaults'+id)
+        .then(res=>{
+          dispatch('getVaults')
+        })
+      },
   }
 })

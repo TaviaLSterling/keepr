@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <h1>Welcome to Keepr</h1>
+            <h1>Welcome to Keepr</h1>
         <form v-if="loginForm" @submit.prevent="loginUser">
             <input type="email" v-model="creds.email" placeholder="email">
             <input type="password" v-model="creds.password" placeholder="password">
@@ -17,27 +17,27 @@
             <p v-else>Already have an account click to Login</p>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-                  <ul class="navbar-nav mr-auto">
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link" href="#"></a>
+                        <a class="nav-link" href="#"></a>
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link" href="#"></a>
+                        <a class="nav-link" href="#"></a>
                     </li>
-                  </ul>
-                  <span class="navbar-text">
-                   <h3>Keepr</h3>
-                  </span>
-                </div>
-              </nav>
+                </ul>
+                <span class="navbar-text float-left">
+                    <h3>Keepr</h3>
+                </span>
+            </div>
+        </nav>
     </div>
 </template>
 
@@ -73,6 +73,11 @@
     };
 </script>
 <style>
+    .login {
+        /* display:flex; */
+        color: #4C8302;
+  font-family: 'Oregano', cursive;
+    }
     h1 {
   /* margin-top: 5rem; */
   font-size:100px;
