@@ -29,14 +29,14 @@ namespace keepr.Controllers
     {
       return _repo.GetById(id);
     }
-    [Authorize]
-    [HttpGet]
-    public IEnumerable<Vault> GetByUserId()
-    {
-      var user = HttpContext.User;
-      var id = user.Identity.Name;
-      return _repo.GetByUserId(id);
-    }
+    // [Authorize]
+    // [HttpGet]
+    // public IEnumerable<Vault> GetByUserId()
+    // {
+    //   var user = HttpContext.User;
+    //   var id = user.Identity.Name;
+    //   return _repo.GetByUserId(id);
+    // }
 
 
     [HttpPost]

@@ -28,10 +28,10 @@ namespace keepr.Repositories
     {
       return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id;", new { id }).FirstOrDefault();
     }
-    public IEnumerable<Vault> GetByUserId(string id)
-    {
-      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new { id });
-    }
+    // public IEnumerable<Vault> GetByUserId(string id)
+    // {
+    //   return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new { id });
+    // }
     public IEnumerable<Vault> GetByVaultId(int id)
     {
       return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id", new { id });

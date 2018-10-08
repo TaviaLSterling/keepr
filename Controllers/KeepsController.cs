@@ -30,7 +30,7 @@ namespace keepr.Controllers
     {
       if (ModelState.IsValid)
       {
-        keep = new Keep(keep.Name, keep.Description);
+        keep = new Keep(keep.Name, keep.Description, keep.Img);
         return _repo.Create(keep);
       }
       throw new Exception("INVALID KEEP");
@@ -43,7 +43,7 @@ namespace keepr.Controllers
             return _repo.GetByVault(id);
         }
 
-        [HttpGet("{id")]
+        [HttpGet("{id}")]
         public Keep GetById(int id)
         {
           return _repo.GetById(id);
