@@ -37,9 +37,9 @@
     <div>
     <form @submit.prevent="createKeep">
       <h3>Create a Keep: </h3>
-        <input type="text" placeholder="Title">
-        <input type="text" placeholder="Description">
-        <input type="url" placeholder="Image Url">
+        <input type="text" placeholder="Title" v-model="keep.name">
+        <input type="text" placeholder="Description" v-model="keep.description">
+        <input type="text" placeholder="Image Url" v-model="keep.img">
         <button type="submit">Submit</button>
     </form>
     </div>
@@ -51,6 +51,7 @@
         <img :src="keep.image">
         <button v-if="user.id == keep.userId" class="btn btn-danger" @click="deleteKeep(keep.id)">Delete</button>
     </div> -->
+  
     <KeepDetails />
     
     <!-- <button type="submit" class="btn btn-success" @click="logoutUser"><h5>Logout</h5></button> -->
@@ -60,6 +61,15 @@
 <script>
   import KeepDetails from '../components/KeepDetails'
   export default {
+    data() {
+      return {
+        keep: {
+          name: "",
+          description: "",
+          img: ""
+        }
+      }
+    },
     name: "home",
     mounted() {
       //blocks users not logged in
@@ -77,7 +87,8 @@
       this.$store.dispatch("getDash");
     },
     createKeep() {
-      this.$store.dispatch('getKeeps');
+      this.$store.dispatch('createKeep',this.keep);
+      this.keep = {name:"",description:"",img:""}
     },
     getKeeps() {
       this.$store.dispatch('setKeeps')

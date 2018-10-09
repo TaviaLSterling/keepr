@@ -21,7 +21,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     keeps:[],
-    vaults:[]
+    vaults:[],
+    vaultKeeps:[]
   },
   mutations: {
     setUser(state, user) {
@@ -81,7 +82,7 @@ export default new Vuex.Store({
       })
     },
     getDash({ commit, dispatch }) {
-      auth.get('dash')
+      api.get('dash')
         .then(res => {
           commit('setDash', res.data)
           router.push({ name: 'dash' })
@@ -94,10 +95,11 @@ export default new Vuex.Store({
 
       ////// Keeps Things
 
-      createKeep({commit,dispatch,state},){
-        api.post("keeps")
+      createKeep({commit,dispatch},data){
+        debugger
+        api.post("keeps",data)
         .then(res =>{
-          dispatch('getKeeps')
+          dispatch('getKeeps',res.data)
         })
       },
       getKeeps({commit,dispatch}) {
@@ -126,5 +128,11 @@ export default new Vuex.Store({
           dispatch('getVaults')
         })
       },
+      getVaults({commit,dispatch}) {
+        api.get("vaults")
+        .then(res => {
+          commit('setVaults',res.data)
+        })
+      }
   }
 })
