@@ -29,7 +29,7 @@ namespace keepr.Controllers
     {
       return _repo.GetById(id);
     }
-    [Authorize]
+    // [Authorize]
     [HttpGet]
     public IEnumerable<Vault> GetByUserId()
     {

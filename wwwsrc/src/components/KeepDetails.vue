@@ -42,7 +42,7 @@
         },
         methods: {
             deleteKeep(id) {
-                this.$store.dispatch('deleteKeep', id)
+                this.$store.dispatch('deleteKeep',id)
             },
             getKeeps(){
                 this.$store.dispatch('getKeeps')

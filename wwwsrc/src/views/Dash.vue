@@ -69,16 +69,17 @@
             //blocks users not logged in
             if (!this.$store.state.user.id) {
               this.$router.push({ name: "login" });
-              this.$store.dispatch('getVaults');
             }
-            
           },
+            mounted() {
+              this.$store.dispatch("getVaults")
+            },
           methods: {
             logoutUser() {
                 this.$store.dispatch("logout");
                   },
             deleteVault(id) {
-                this.$store.dispatch('deleteVault', id)
+                this.$store.dispatch('deleteVault', id);
             },
             getVaults() {
               this.$store.dispatch('getVaults');

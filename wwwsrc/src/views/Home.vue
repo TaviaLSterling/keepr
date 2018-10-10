@@ -98,6 +98,9 @@
     },
     createVault() {
       this.$store.dispatch('getVaults')
+    },
+    deleteKeep() {
+      this.$store.dispatch('deleteKeep')
     }
     },
     computed: {
