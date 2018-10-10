@@ -52,8 +52,8 @@ namespace keepr.Repositories
     public Vault Update(int id, Vault vault)
     {
       _db.Execute(@"
-      UPDATE vaults SET (name, description,userId) 
-      VALUES (@Name, @Description,@UserId)
+      UPDATE vaults SET (name, description, userId) 
+      VALUES (@Name, @Description, @UserId)
       WHERE id = @Id
       ", vault);
       return vault;

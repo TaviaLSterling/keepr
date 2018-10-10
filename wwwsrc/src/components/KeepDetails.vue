@@ -11,7 +11,7 @@
                 <button class="btn btn-warning mr-2"><h4>Share</h4></button>
                 <button class="btn btn-warning"><h4>Keep</h4></button>
                 <!-- <img :src="keep.image"> -->
-                <!-- <button v-if="user.id == keep.userId" class="btn btn-danger" @click="deleteKeep(keep.id)">Delete</button> -->
+                <button v-if="user.id == keep.userId" class="btn btn-danger ml-2" @click="deleteKeep(keep.id)">Delete</button>
             </div>
         </div>
     </div>
@@ -26,12 +26,13 @@
                 keep: {
                     name: "",
                     description: "",
-                    img: ""
+                    img: "",
+                    userId:""
                 }
             }
         },
         computed: {
-            User() {
+            user() {
                 return this.$store.state.user
             },
             keeps() {
@@ -42,6 +43,9 @@
         methods: {
             deleteKeep(id) {
                 this.$store.dispatch('deleteKeep', id)
+            },
+            getKeeps(){
+                this.$store.dispatch('getKeeps')
             }
         }
     }

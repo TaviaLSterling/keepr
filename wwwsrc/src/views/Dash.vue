@@ -37,9 +37,9 @@
        
               <div class="VaultDetails">
                   <div class="row">
-                      <!-- <h1>IS THIS WORKING?</h1> -->
-                      <div class="col-6 mt-5" v-for="vault in vaults" :v-key="vault.id">
-                          <h3>{{vault.name}}</h3>
+                    <!-- <h1>IS THIS WORKING?</h1> -->
+                    <div class="col-6 mt-5" v-for="vault in vaults":key="vault.id">
+                        <h3>{{vault.name}}</h3>
                           <h4>{{vault.description}}</h4>
                           <button @click="deleteVault">Delete Vault</button>
                       </div>
@@ -54,6 +54,7 @@
       
       <script>
         export default {
+          name: "dash",
           data() {
       return {
         vault: {
@@ -64,18 +65,17 @@
         }
       }
     },
-          name: "dash",
           mounted() {
             //blocks users not logged in
             if (!this.$store.state.user.id) {
               this.$router.push({ name: "login" });
+              this.$store.dispatch('getVaults');
             }
-              // this.$store.dispatch('getVaults');
             
           },
           methods: {
             logoutUser() {
-                      this.$store.dispatch("logout");
+                this.$store.dispatch("logout");
                   },
             deleteVault(id) {
                 this.$store.dispatch('deleteVault', id)

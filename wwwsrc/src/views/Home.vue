@@ -66,7 +66,8 @@
         keep: {
           name: "",
           description: "",
-          img: ""
+          img: "",
+          userId:""
         }
       }
     },
@@ -87,8 +88,10 @@
       this.$store.dispatch("getDash");
     },
     createKeep() {
+      this.keep.userId = this.user.id
+      debugger
       this.$store.dispatch('createKeep',this.keep);
-      this.keep = {name:"",description:"",img:""}
+      this.keep = {name:"",description:"",img:"",userId:""}
     },
     getKeeps() {
       this.$store.dispatch('setKeeps')
@@ -98,8 +101,11 @@
     }
     },
     computed: {
-      Keeps() {
-                return this.$store.state.keeps
+      keeps() {
+                return this.$store.state.keeps;
+            },
+            user(){
+              return this.$store.state.user;
             }
     },
     components: {

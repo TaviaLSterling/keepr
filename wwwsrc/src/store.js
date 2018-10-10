@@ -96,10 +96,9 @@ export default new Vuex.Store({
       ////// Keeps Things
 
       createKeep({commit,dispatch},data){
-        debugger
         api.post("keeps",data)
         .then(res =>{
-          dispatch('getKeeps',res.data)
+          dispatch('getKeeps')
         })
       },
       getKeeps({commit,dispatch}) {
@@ -109,7 +108,7 @@ export default new Vuex.Store({
         })
       },
       deleteKeep({dispatch, commit}, id){
-        api.delete('/keeps'+id)
+        api.delete("keeps/" + id)
         .then(res=>{
           dispatch('getKeeps')
         })
