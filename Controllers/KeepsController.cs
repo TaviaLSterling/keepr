@@ -56,8 +56,9 @@ namespace keepr.Controllers
         [HttpDelete("{id}")]
         // [Authorize]
         public void DeleteKeep(int id)
+      
         {
-
+           _repo.DeleteKeep(id);
         }
         [HttpPut("{id}")]
         [Authorize]

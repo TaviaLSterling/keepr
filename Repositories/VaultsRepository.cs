@@ -59,7 +59,7 @@ namespace keepr.Repositories
       return vault;
     }
 
-        //DELETE smoothie
+      
         public Vault Delete(Vault vault)
     {
       _db.Execute("DELETE FROM vaults WHERE id = @Id", vault);

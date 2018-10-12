@@ -32,7 +32,7 @@ namespace keepr.Repositories
 
     public VaultKeep Create(VaultKeep vaultkeep)
     {
-      int id = _db.ExecuteScalar<int>(@"
+      var id = _db.ExecuteScalar<int>(@"
       INSERT INTO vaultkeeps (vaultId, keepId, userid)
       VALUES (@VaultId, @KeepId, @UserId);
       SELECT LAST_INSERT_ID();", vaultkeep

@@ -29,8 +29,8 @@
     <div>
         <form @submit.prevent="createVault">
           <h3>Create a Vault: </h3>
-            <input type="text" placeholder="Title">
-            <input type="text" placeholder="Description">
+            <input type="text" placeholder="Title" v-model="vault.name">
+            <input type="text" placeholder="Description" v-model="vault.description">
             <button type="submit">Submit</button>
         </form>
         </div>
@@ -68,6 +68,11 @@
           description: "",
           img: "",
           userId:""
+        },
+        vault: {
+          name:"",
+          description:"",
+          userId:""
         }
       }
     },
@@ -86,12 +91,17 @@
             },
     getDash() {
       this.$store.dispatch("getDash");
+      this.$router.push({ name: "dash" });
     },
     createKeep() {
       this.keep.userId = this.user.id
-      debugger
       this.$store.dispatch('createKeep',this.keep);
       this.keep = {name:"",description:"",img:"",userId:""}
+    },
+    createVault() {
+      this.vault.userId = this.vault.id
+      this.$store.dispatch('createVault',this.vault);
+      this.vault = {name:"",description:"",userId:""}
     },
     getKeeps() {
       this.$store.dispatch('setKeeps')

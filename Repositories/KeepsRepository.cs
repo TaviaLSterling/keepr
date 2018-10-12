@@ -65,11 +65,11 @@ namespace keepr.Repositories
         }
 
         //DELETE smoothie
-        //     public  Delete(Keep keep)
-        // {
-        //   _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
-        //   return keep;
-        // }
+            public Keep DeleteKeep(Keep keep)
+        {
+          _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
+          return keep;
+        }
 
         public int DeleteKeep(int id)
     {

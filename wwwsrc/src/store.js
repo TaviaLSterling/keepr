@@ -20,9 +20,9 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    keeps:[],
-    vaults:[],
-    vaultKeeps:[]
+    keeps: [],
+    vaults: [],
+    vaultKeeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -32,13 +32,16 @@ export default new Vuex.Store({
       state.user = {}
       router.push({ name: 'login' })
     },
-    setVaults(state, vaults) {      
+    setVaults(state, vaults) {
       state.vaults = vaults
     },
-    setKeeps(state,keeps){      
+    setKeeps(state, keeps) {
       state.keeps = keeps
     },
-    setDash(state,user) {
+    setVaultKeeps(state, vaultKeeps) {
+      state.vaultKeeps = vaultKeeps
+    },
+    setDash(state, user) {
       state.user = user
     }
   },
@@ -73,13 +76,12 @@ export default new Vuex.Store({
           console.log('Login Failed')
         })
     },
-    logout({commit,dispatch})
-    {
+    logout({ commit, dispatch }) {
       auth.delete('logout')
-      .then(res => {
-        dispatch('logout')
-        router.push({name: 'login'})
-      })
+        .then(res => {
+          dispatch('logout')
+          router.push({ name: 'login' })
+        })
     },
     getDash({ commit, dispatch }) {
       api.get('dash')
@@ -90,48 +92,88 @@ export default new Vuex.Store({
         .catch(e => {
           console.log('Must Login')
         })
-      },
+    },
 
 
-      ////// Keeps Things
+    ////// Keeps Things
 
-      createKeep({commit,dispatch},data){
-        api.post("keeps",data)
-        .then(res =>{
+    createKeep({ commit, dispatch }, data) {
+      api.post("keeps", data)
+        .then(res => {
           dispatch('getKeeps')
         })
-      },
-      getKeeps({commit,dispatch}) {
-        api.get("keeps")
+    },
+    getKeeps({ commit, dispatch }) {
+      api.get("keeps")
         .then(res => {
-          commit('setKeeps',res.data)
+          commit('setKeeps', res.data)
         })
-      },
-      deleteKeep({dispatch, commit}, id){
-        api.delete("keeps/" + id)
-        .then(res=>{
+    },
+    editKeep({ dispatch, commit }, id) {
+      api.put("keeps/" + id)
+        .then(res => {
+          commit('setKeeps', res.data.keeps)
+        })
+    },
+    deleteKeep({ dispatch, commit }, keepId) {
+      api.delete("keeps/" + keepId)
+        .then(res => {
           dispatch('getKeeps')
         })
-      },
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    saveKeep({ commit, dispatch }, keep) {
+      api.post("vaultKeeps/")
+      dispatch("saveVaultKeep", keep)
+      
+    },
 
-      //// Vault things
-      createVault({commit,dispatch,state},vault){
-        api.post("/Dash",vault)
-        .then(res =>{
-          dispatch('getVaults')
-        })
-      },
-      deleteVault({commit,dispatch}, id){
-        api.delete('/vaults'+id)
-        .then(res=>{
-          dispatch('getVaults')
-        })
-      },
-      getVaults({commit,dispatch}) {
-        api.get("vaults")
+    //// Vault things
+    createVault({ commit, dispatch }, vault) {
+      api.post("vaults", vault)
         .then(res => {
-          commit('setVaults',res.data)
+          dispatch('getVaults')
         })
-      }
+    },
+    deleteVault({ commit, dispatch }, id) {
+      api.delete('/vaults' + id)
+        .then(res => {
+          dispatch('getVaults')
+        })
+    },
+    getVaults({ commit, dispatch }) {
+      api.get("vaults")
+        .then(res => {
+          commit('setVaults', res.data)
+        })
+    },
+    editVault({ dispatch, commit }, id) {
+      api.put('vault/' + id)
+        .then(res => {
+          commit('setVaults', res.data.vaults)
+        })
+    },
+    //// VaultKeep things
+
+    saveVaultKeep({ commit, dispatch }, vaultKeep) {
+      api.post('vaultKeeps/', vaultKeep)
+      .then(res =>{
+        commit('setVaultKeeps', vaultKeep)
+      })
+    },
+    getVaultKeeps({ commit, dispatch }, data) {
+      api.get('vaultkeeps/' + data)
+        .then(res => {
+          commit('setVaultKeeps', res.data)
+        })
+    },
+    createVaultKeep({ commit, dispatch }, data) {
+      api.post("vaultkeeps", data)
+        .then(res => {
+          commit('setVaultKeeps')
+        })
+    }
   }
 })

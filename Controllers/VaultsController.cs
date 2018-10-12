@@ -24,11 +24,11 @@ namespace keepr.Controllers
       return _repo.GetAll();
     }
     //Get a vault by the id of the vault
-    [HttpGet("{id}")]
-    public Vault GetById(int id)
-    {
-      return _repo.GetById(id);
-    }
+    // [HttpGet("{id}")]
+    // public Vault GetById(int id)
+    // {
+    //   return _repo.GetById(id);
+    // }
     // [Authorize]
     [HttpGet]
     public IEnumerable<Vault> GetByUserId()
@@ -54,7 +54,7 @@ namespace keepr.Controllers
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
-
+      _repo.Delete(id);
     }
     [Authorize]
     [HttpPut("{id}")]
