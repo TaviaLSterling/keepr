@@ -150,7 +150,7 @@ export default new Vuex.Store({
         })
     },
     editVault({ dispatch, commit }, id) {
-      api.put('vault/' + id)
+      api.put('vaults/' + id)
         .then(res => {
           commit('setVaults', res.data.vaults)
         })

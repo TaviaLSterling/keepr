@@ -49,10 +49,10 @@
         },
         methods: {
             deleteKeep(keep) {
-        if (keep.userId == this.user.id) {
-          this.$store.dispatch("deleteKeep", keep);
-        }
-      },
+                if (keep.userId == this.user.id) {
+                    this.$store.dispatch("deleteKeep", keep);
+                }
+            },
             deleteKeep(keepId) {
                 this.$store.dispatch('deleteKeep', keepId)
             },

@@ -1,58 +1,47 @@
 <template>
   <div class="dash container-fluid">
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
+      
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <!-- <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li> -->
-          <li button type="submit" class="btn btn-warning mr-5" @click="getHome">
-            <h5>Home</h5></button>
-          </li>
-          <li button type="submit" class="btn btn-warning" @click="logoutUser">
-            <h5>Logout</h5></button>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#"></a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          <img class="tinyImg" src="../assets/pig-icon-7.png">
-          <h3>Keepr</h3>
-        </span>
-      </div>
-    </nav>
-    <h2>{{user.username}}'s Dashboard</h2>
-    <div>
-      <form @submit.prevent="createVault">
-        <h3>Create a Vault: </h3>
-        <input type="text" placeholder="Title" v-model="vault.name">
-        <input type="text" placeholder="Description" v-model="vault.description">
-        <button type="submit">Submit</button>
-      </form>
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li button type="submit" class="btn btn-warning mr-5" @click="getHome">
+          <h5>Home</h5></button>
+        </li>
+        <li button type="submit" class="btn btn-warning" @click="logoutUser">
+          <h5>Logout</h5></button>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <img class="tinyImg" src="../assets/pig-icon-7.png">
+        <h3>Keepr</h3>
+      </span>
     </div>
-
-    <div class="">
-      <div class="row">
-        <!-- <h1>IS THIS WORKING?</h1> -->
-        <div class="col-6 mt-5" v-for="vault in vaults" :key="vault.id">
-          <h3>{{vault.name}}</h3>
-          <h4>{{vault.description}}</h4>
-          <button @click="deleteVault">Delete Vault</button>
-        </div>
-      </div>
-    </div>
-    <div v-for="vk in vaultKeeps" :key="vk._id" class="col-6">
-      {{vk.name}} {{vk.description}}
-    </div>
-    <!-- <button type="submit" class="btn btn-success" @click="logoutUser"><h5>Logout</h5></button> -->
+  </nav>
+  <h2>{{user.username}}'s Dashboard</h2>
+  <div>
+    <form @submit.prevent="createVault">
+      <h3>Create a Vault: </h3>
+      <input type="text" placeholder="Title" v-model="vault.name">
+      <input type="text" placeholder="Description" v-model="vault.description">
+      <button type="submit">Submit</button>
+    </form>
   </div>
+  <div class="vaultDetails">
+    <div class="row">
+      <div class="col-6 mt-5" v-for="vault in vaults" :key="vault.id">
+        <h2>Is this working?</h2>
+        <h3>{{vault.name}}</h3>
+        <h4>{{vault.description}}</h4>
+        <button @click="deleteVault">Delete Vault</button>
+      </div>
+    </div>
+  </div>
+  <div v-for="vk in vaultKeeps" :key="vk._id" class="col-6">
+    {{vk.name}} {{vk.description}}
   </div>
 </div>
 </template>
