@@ -63,6 +63,7 @@
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
+        // this.$store.dispatch("getVaults")
       }
     },
     mounted() {
@@ -89,9 +90,6 @@
         this.$store.dispatch('createVault', this.vault);
         this.vault = { name: "", description: "", userId: "" }
       },
-      // createVault() {
-      //   this.$store.dispatch('createVault');
-      // }
     },
     computed: {
       user() {
