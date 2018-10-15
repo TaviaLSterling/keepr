@@ -137,8 +137,8 @@ export default new Vuex.Store({
           dispatch('getVaults')
         })
     },
-    deleteVault({ commit, dispatch }, id) {
-      api.delete('/vaults' + id)
+    deleteVault({ commit, dispatch }, vaultId) {
+      api.delete('vaults/' + vaultId)
         .then(res => {
           dispatch('getVaults')
         })
@@ -149,22 +149,22 @@ export default new Vuex.Store({
           commit('setVaults', res.data)
         })
     },
-    editVault({ dispatch, commit }, id) {
-      api.put('vaults/' + id)
+    editVault({ dispatch, commit }, vaultId) {
+      api.put('vaults/' + vaultId)
         .then(res => {
           commit('setVaults', res.data.vaults)
         })
     },
     //// VaultKeep things
 
-    saveVaultKeep({ commit, dispatch }, vaultKeep) {
-      api.post('vaultKeeps/', vaultKeep)
+    savedVaultKeep({ commit, dispatch }, vaultKeep) {
+      api.post('vaultKeeps', vaultKeep)
       .then(res =>{
-        commit('setVaultKeeps', vaultKeep)
+        commit('setVaultKeeps')
       })
     },
-    getVaultKeeps({ commit, dispatch }, data) {
-      api.get('vaultkeeps/' + data)
+    getVaultKeeps({ commit, dispatch },vaultData) {
+      api.get('vaultkeeps/' + vaultData)
         .then(res => {
           commit('setVaultKeeps', res.data)
         })
@@ -174,6 +174,12 @@ export default new Vuex.Store({
         .then(res => {
           commit('setVaultKeeps')
         })
-    }
+    },
+    deleteVaultKeep({ commit, dispatch }, data) {
+      api.delete('vaultKeeps/vaults/' + data.vaultId + "/keeps/" + data.keepId)
+        .then(res => {
+          dispatch('getVaultKeeps', data.vaultId)
+        })
+    },
   }
 })

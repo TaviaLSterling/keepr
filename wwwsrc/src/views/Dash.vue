@@ -6,6 +6,7 @@
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li button type="submit" class="btn btn-warning mr-5" @click="getHome">
@@ -31,43 +32,75 @@
     </form>
   </div>
   <div class="vaultDetails">
+    <h3>{{user.username}}'s Vaults</h3>
     <div class="row">
       <div class="col-6 mt-5" v-for="vault in vaults" :key="vault.id">
-        <h2>Is this working?</h2>
         <h3>{{vault.name}}</h3>
         <h4>{{vault.description}}</h4>
-        <button @click="deleteVault">Delete Vault</button>
+        <button class="btn btn-info mr-2" @click="editVault(vault.id)">Edit</button>
+        <button class="btn btn-danger" @click="deleteVault(vault.id)">Delete Vault</button>
       </div>
     </div>
   </div>
-  <div v-for="vk in vaultKeeps" :key="vk._id" class="col-6">
-    {{vk.name}} {{vk.description}}
+  
+  
+  <h3>{{user.username}}'s Keeps</h3>
+  <KeepDetails />
+  <div>
+    <h3>{{user.username}}'s Vault Keeps</h3>
+      <form @submit.prevent>
+        <select v-model="pickVault">
+          <option diabled value="">Vaults</option>
+          <option v-for="vault in vaults" v-bind:value="vault.id">{{vault.name}}</option>
+        </select>
+        <button class="btn btn-success" type="submit" @click="getVaultKeeps(pickVault)">View</button>
+      </form>
+    </div>
+  <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id" class="col-8">
+    <img :src="vaultKeep.img">
+      <div>
+        <h3> {{vaultKeep.name}}</h3>
+      </div>
+    <button type="button" class="btn btn-danger" @click="deleteVaultKeep(vaultKeep.id)">Delete</button>
   </div>
 </div>
 </template>
 
 <script>
+   import KeepDetails from '../components/KeepDetails'
   export default {
     name: "dash",
     data() {
       return {
+        keep: {
+          name:"",
+          description:"",
+          img:"",
+          userId:""
+        },
         vault: {
           name: "",
           description: "",
           userId: ""
-
-        }
+        },
+        vaultKeep: {
+          vaultId: "",
+          keepId: "",
+          userId: ""
+        },
+        pickVault: ""
       }
     },
+    props: ["KeepDetails"],
     mounted() {
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
-        // this.$store.dispatch("getVaults")
       }
     },
     mounted() {
       this.$store.dispatch("getVaults")
+      // this.$store.dispatch("getVaultKeeps")
     },
     methods: {
       logoutUser() {
@@ -76,8 +109,14 @@
       getHome() {
         this.$router.push({ name: "home" });
       },
+      editVault() {
+        this.$store.dispatch("editVault")
+      },
       deleteVault(id) {
         this.$store.dispatch('deleteVault', id);
+      },
+      deleteVaultKeep(keepId) {
+        this.$store.dispatch("deleteVaultKeep", { keepId: keepId, vaultId: this.pickVault })
       },
       getVaults() {
         this.$store.dispatch('getVaults');
@@ -86,10 +125,17 @@
         this.$store.dispatch('getVaultKeeps', vault)
       },
       createVault() {
-        this.vault.userId = this.vault.id
+        this.vault.userId = this.user.id
         this.$store.dispatch('createVault', this.vault);
         this.vault = { name: "", description: "", userId: "" }
       },
+      savedVaultKeep(keep) {
+        keep.keeps++
+        this.vaultKeep.userId = this.user.id
+        this.vaultKeep.keepId = keep.id
+        this.vaultKeep.vaultId = this.pickVault
+        this.$store.dispatch("savedVaultKeep", this.vaultKeep);
+      }
     },
     computed: {
       user() {
@@ -101,10 +147,22 @@
       vaultKeeps() {
         return this.$store.state.vaultKeeps;
       },
+      keeps() {
+        return this.$store.state.keeps;
+      },
+      usersKeeps() {
+        return this.$store.state.userKeeps;
+      }
+    },
+    components: {
+      KeepDetails
     }
   };
 </script>
 <style scoped>
+  form {
+    margin-bottom:30px;
+  }
   h1,
   h2 {
     /* margin-top: 5rem; */

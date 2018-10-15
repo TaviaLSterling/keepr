@@ -18,10 +18,10 @@ namespace keepr.Repositories
     }
 
     //GET ALL VAULTS
-    public IEnumerable<Vault> GetAll()
-    {
-      return _db.Query<Vault>("SELECT * FROM vaults;");
-    }
+    // public IEnumerable<Vault> GetAll()
+    // {
+    //   return _db.Query<Vault>("SELECT * FROM vaults;");
+    // }
 
     //GET VAULT BY ID
     public Vault GetById(int id)
@@ -31,10 +31,6 @@ namespace keepr.Repositories
     public IEnumerable<Vault> GetByUserId(string id)
     {
       return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @id", new { id });
-    }
-    public IEnumerable<Vault> GetByVaultId(int id)
-    {
-      return _db.Query<Vault>("SELECT * FROM vaults WHERE id = @id", new { id });
     }
     //CREATE A VAULT
     public Vault Create(Vault vault)
@@ -60,11 +56,11 @@ namespace keepr.Repositories
     }
 
       
-        public Vault Delete(Vault vault)
-    {
-      _db.Execute("DELETE FROM vaults WHERE id = @Id", vault);
-      return vault;
-    }
+    //     public Vault Delete(Vault vault)
+    // {
+    //   _db.Execute("DELETE FROM vaults WHERE id = @Id", vault);
+    //   return vault;
+    // }
 
     public int Delete(int id)
     {

@@ -33,6 +33,17 @@ namespace keepr.Controllers
       }
       throw new System.Exception("Invalid");
     }
+        [HttpGet("{vaultId}")]
 
+    public IEnumerable<Keep> GetVaultKeeps([FromRoute] int vaultId)
+    {
+      return _repo.GetVaultKeeps(vaultId);
+    }
+
+[HttpDelete("vaults/{vaultId}/keeps/{keepId}")]
+    public void Delete(int vaultId, int keepId)
+    {
+  _repo.Delete(vaultId,keepId);
+    }
   }
 }

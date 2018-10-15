@@ -26,14 +26,14 @@
       </div>
     </nav>
     <h1>Welcome to Keepr</h1>
-    <div>
+    <!-- <div>
         <form @submit.prevent="createVault">
           <h3>Create a Vault: </h3>
             <input type="text" placeholder="Title" v-model="vault.name">
             <input type="text" placeholder="Description" v-model="vault.description">
             <button type="submit">Submit</button>
         </form>
-        </div>
+        </div> -->
     <div>
     <form @submit.prevent="createKeep">
       <h3>Create a Keep: </h3>
@@ -81,8 +81,9 @@
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
-        this.$store.dispatch("getKeeps");
+        // this.$store.dispatch("getKeeps");
       }
+      this.$store.dispatch("getKeeps");
     },
     props: ["KeepDetails"],
     methods: {
@@ -119,6 +120,9 @@
             },
             user(){
               return this.$store.state.user;
+            },
+            vaults() {
+              return this.$store.state.vaults;
             }
     },
     components: {

@@ -19,10 +19,10 @@ namespace keepr.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<Vault> Get()
-    {
-      return _repo.GetAll();
-    }
+    // public IEnumerable<Vault> Get()
+    // {
+    //   return _repo.GetAll();
+    // }
     //Get a vault by the id of the vault
     // [HttpGet("{id}")]
     // public Vault GetById(int id)
@@ -33,24 +33,26 @@ namespace keepr.Controllers
     [HttpGet]
     public IEnumerable<Vault> GetByUserId()
     {
-      var user = HttpContext.User;
-      var id = user.Identity.Name;
-      return _repo.GetByUserId(id);
+      var userId = HttpContext.User.Identity.Name;
+      var vaults = _repo.GetByUserId(userId);
+      return vaults;
     }
 
 
     [HttpPost]
-    [Authorize]
+    // [Authorize]
     public Vault Post([FromBody] Vault vault)
     {
       if (ModelState.IsValid)
       {
+         var userId = HttpContext.User.Identity.Name;
+      var vaults = _repo.GetByUserId(userId);
         vault = new Vault(vault.Name, vault.Description, vault.UserId);
         return _repo.Create(vault);
       }
       throw new Exception("INVALID VAULT");
     }
-    [Authorize]
+    // [Authorize]
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
