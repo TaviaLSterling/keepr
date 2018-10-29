@@ -9,7 +9,7 @@
                 <h4>Views: {{keep.views}}</h4>
                 <h4>Keeps:{{keep.keeps}}</h4>
                 <!-- make buttons appear if hovering -->
-                <div v-if="hoverButtons = hoverButtons ? true: false">
+                <!-- <div v-if="hoverButtons = hoverButtons ? true: false"> -->
                     <button class="btn btn-warning mr-2" @click="viewKeep(keep)">
                         <h4>View</h4>
                     </button>
@@ -19,7 +19,7 @@
                     <!-- <button class="btn btn-warning" @click="saveKeep(keep)">
                         <h4>Keep</h4>
                     </button> -->
-                </div>
+                <!-- </div> -->
                 <button v-if="user.id == keep.userId" class="btn btn-info ml-2" @click="editKeep(keep.id)">Edit</button>
                 <button v-if="user.id == keep.userId" class="btn btn-danger ml-2" @click="deleteKeep(keep.id)">Delete</button>
 
@@ -41,7 +41,7 @@
         name: 'KeepDetails',
         data() {
             return {
-                hoverButtons: false,
+                // hoverButtons: false,
                 keep: {
                     name: "",
                     description: "",
