@@ -42,11 +42,7 @@
       </div>
     </div>
   </div>
-  
-  
-  <h3>{{user.username}}'s Keeps</h3>
-  <KeepDetails />
-  <div>
+   <div>
     <h3>{{user.username}}'s Vault Keeps</h3>
       <form @submit.prevent>
         <select v-model="pickVault">
@@ -63,6 +59,10 @@
       </div>
     <button type="button" class="btn btn-danger" @click="deleteVaultKeep(vaultKeep.id)">Delete</button>
   </div>
+  
+  <h3>{{user.username}}'s Keeps</h3>
+  <KeepDetails />
+ 
 </div>
 </template>
 
